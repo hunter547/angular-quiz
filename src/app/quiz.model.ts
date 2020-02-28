@@ -13,3 +13,7 @@ export class Quiz {
 export class Answers {
   constructor(public values: Choice[] = []) {}
 }
+
+export class Results {
+  constructor(public correctCount: number, public totalQuestions: number, public percentage: string) {}
+}

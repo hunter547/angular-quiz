@@ -5,6 +5,7 @@
   <mat-card class="results-card">
     <mat-card-header>
       <mat-card-title>Results</mat-card-title>
+      <mat-card-subtitle>{{results.correctCount}} out of {{results.totalQuestions}} correct. {{results.percentage}}%</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content class="answer" *ngFor="let a of answers.values; index as i" [ngClass]="{correct: a.correct}">
       <div class="result-div">

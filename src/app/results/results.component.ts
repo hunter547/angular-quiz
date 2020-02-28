@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Answers, Question } from '../quiz.model';
+import { Answers, Question, Results } from '../quiz.model';
 import { QuestionsService } from '../questions.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -11,9 +11,11 @@ import { ActivatedRoute } from '@angular/router';
 export class ResultsComponent implements OnInit {
 
   @Input() answers: Answers;
+  @Input() results: Results;
   currentQuiz: String;
   questions: Question[];
   correctChoice: Array<string> = [];
+
 
   constructor(private route: ActivatedRoute, public questionsService: QuestionsService){}
 
@@ -30,6 +32,7 @@ export class ResultsComponent implements OnInit {
       });
     this.currentQuiz = this.route.snapshot.params.quizId.charAt(0).toUpperCase()
       + this.route.snapshot.params.quizId.slice(1);
+    console.log(this.answers);
   }
 
 }

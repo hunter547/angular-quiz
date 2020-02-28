@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
 import { QuestionsService } from '../questions.service';
-import { Quiz, Answers, Choice, Question } from '../quiz.model';
+import { Quiz, Answers, Choice, Question, Results } from '../quiz.model';
 
 @Component({
   selector: 'app-questions',
@@ -15,9 +15,12 @@ export class QuestionsComponent implements OnInit {
 
   quiz: Quiz;
   answers: Answers;
+  results: Results;
   questions: Question[];
   currentQuestionIndex: number;
   currentQuiz: String;
+  correctCount: number;
+  incorrectCount: number;
   showResults = false;
 
   // inject both the active route and the questions service
@@ -34,6 +37,9 @@ export class QuestionsComponent implements OnInit {
           + this.route.snapshot.params.quizId.slice(1);
         this.answers = new Answers();
         this.currentQuestionIndex = 0;
+        this.results = new Results(0,0,'');
+        this.correctCount = 0;
+        this.incorrectCount = 0;
       });
   }
 
@@ -41,7 +47,22 @@ export class QuestionsComponent implements OnInit {
     this.answers.values[this.currentQuestionIndex] = choice;
   }
 
+  updateStats() {
+    if(this.answers.values[this.currentQuestionIndex].correct) {
+      ++this.correctCount;
+    }
+    else {
+      ++this.incorrectCount;
+    }
+    var totalQuestions = this.correctCount+this.incorrectCount;
+    var percentage = ((this.correctCount/totalQuestions)*100).toFixed(2);
+    this.results.correctCount = this.correctCount;
+    this.results.totalQuestions = totalQuestions;
+    this.results.percentage = percentage;
+  }
+
   nextOrViewResults() {
+    this.updateStats();
     if (this.currentQuestionIndex === this.questions.length - 1) {
       this.showResults = true;
       return;

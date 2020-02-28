@@ -16,5 +16,14 @@
       {"value": "Tant pis", "correct": false},
       {"value": "Salut!", "correct": false}
     ]
+  },
+  {
+    "label": "What is Baguette in french?",
+    "choices": [
+      {"value": "Crêpe", "correct": false},
+      {"value": "Croissant", "correct": false},
+      {"value": "Merci", "correct": false},
+      {"value": "Baguette", "correct": true}
+    ]
   }
 ]
